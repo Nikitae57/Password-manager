@@ -14,9 +14,10 @@
    <children>
       <AnchorPane prefHeight="19.0" prefWidth="310.0">
          <children>
-            <TextField prefHeight="30.0" prefWidth="260.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="55.0" />
-            <Button layoutX="285.0" mnemonicParsing="false" prefHeight="30.0" text="Поиск" AnchorPane.rightAnchor="0.0" />
-            <Label layoutY="31.0" text="Кол-во записей: " />
+            <TextField fx:id="txtfSearch" prefHeight="30.0" prefWidth="260.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="55.0" />
+            <Button fx:id="btn_ClearTextArea" layoutX="210.0" layoutY="3.0" mnemonicParsing="false" onAction="#clearTextArea" text="X" AnchorPane.rightAnchor="58.0" />
+            <Button fx:id="btn_Search" layoutX="285.0" mnemonicParsing="false" onAction="#search" prefHeight="30.0" text="Поиск" AnchorPane.rightAnchor="0.0" />
+            <Label fx:id="label_NumberOfNotes" layoutY="31.0" text="Кол-во записей: " />
          </children>
          <VBox.margin>
             <Insets bottom="10.0" />
@@ -41,9 +42,9 @@
             <Insets top="20.0" />
          </VBox.margin>
          <children>
-            <Button layoutY="-1.0" mnemonicParsing="false" onAction="#addNewNote" prefHeight="30.0" prefWidth="90.0" text="Добавить" AnchorPane.leftAnchor="0.0" />
-            <Button layoutX="110.0" layoutY="-1.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" text="Изменить" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="110.0" />
-            <Button layoutX="212.0" layoutY="-1.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" text="Удалить" AnchorPane.rightAnchor="0.0" />
+            <Button fx:id="btn_Add" layoutY="-1.0" mnemonicParsing="false" onAction="#showNewNoteWindow" prefHeight="30.0" prefWidth="90.0" text="Добавить" AnchorPane.leftAnchor="0.0" />
+            <Button fx:id="btn_Change" layoutX="110.0" layoutY="-1.0" mnemonicParsing="false" onAction="#changeNote" prefHeight="30.0" prefWidth="90.0" text="Изменить" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="110.0" />
+            <Button fx:id="btn_Delete" layoutX="212.0" layoutY="-1.0" mnemonicParsing="false" onAction="#deleteNote" prefHeight="30.0" prefWidth="90.0" text="Удалить" AnchorPane.rightAnchor="0.0" />
          </children>
       </AnchorPane>
    </children>
