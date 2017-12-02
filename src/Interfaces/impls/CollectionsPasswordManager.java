@@ -2,36 +2,37 @@ package Interfaces.impls;
 
 import Interfaces.PasswordManager;
 import LogicClasses.Note;
-
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableMap;
 import java.util.HashMap;
 
 public class CollectionsPasswordManager implements PasswordManager {
 
-    private HashMap<String, Note> noteHashMap;
+    private ObservableMap<String, Note> noteMap;
 
     public CollectionsPasswordManager() {
-        noteHashMap = new HashMap<>();
+        noteMap = FXCollections.observableMap(new HashMap<String, Note>());
     }
 
-    public CollectionsPasswordManager(HashMap<String, Note> noteHashMap) {
-        this.noteHashMap = noteHashMap;
+    public CollectionsPasswordManager(ObservableMap<String, Note> noteMap) {
+        this.noteMap = noteMap;
     }
 
     public Note getNoteByServiceName(String service) {
-        return noteHashMap.get(service);
+        return noteMap.get(service);
     }
 
     @Override
     public void add(Note note) {
-        noteHashMap.put(note.getService(), note);
+        noteMap.put(note.getService(), note);
     }
 
     @Override
     public void remove(Note note) {
-        noteHashMap.remove(note.getService());
+        noteMap.remove(note.getService());
     }
 
     public int size() {
-        return noteHashMap.size();
+        return noteMap.size();
     }
 }
