@@ -1,38 +1,57 @@
 package Interfaces.impls;
 
+import Controllers.MainController;
 import Interfaces.PasswordManager;
 import LogicClasses.Note;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.collections.ObservableMap;
 import java.util.HashMap;
 
 public class CollectionsPasswordManager implements PasswordManager {
 
-    private ObservableMap<String, Note> noteMap;
+    private ObservableList<Note> noteObservableList;
 
     public CollectionsPasswordManager() {
-        noteMap = FXCollections.observableMap(new HashMap<String, Note>());
+        noteObservableList = FXCollections.observableArrayList();
     }
 
-    public CollectionsPasswordManager(ObservableMap<String, Note> noteMap) {
-        this.noteMap = noteMap;
+    public CollectionsPasswordManager(ObservableList<Note> noteObservableList) {
+        this.noteObservableList = noteObservableList;
+    }
+
+    public ObservableList<Note> getNoteObservableList() {
+        return noteObservableList;
     }
 
     public Note getNoteByServiceName(String service) {
-        return noteMap.get(service);
+        int size = noteObservableList.size();
+        for (int i = 0; i < size; i++) {
+            if (noteObservableList.get(i).getService().equals(service)) {
+                return noteObservableList.get(i);
+            }
+        }
+        return null;
     }
 
     @Override
     public void add(Note note) {
-        noteMap.put(note.getService(), note);
+        noteObservableList.add(note);
     }
 
     @Override
     public void remove(Note note) {
-        noteMap.remove(note.getService());
+        noteObservableList.remove(getNoteByServiceName(note.getService()));
     }
 
     public int size() {
-        return noteMap.size();
+        return noteObservableList.size();
+    }
+
+    public void enterTestData() {
+        noteObservableList.add(new Note("google", "nikita", "123"));
+        noteObservableList.add(new Note("yandex", "nastya", "321"));
+        noteObservableList.add(new Note("catmail", "cat", "890"));
     }
 }

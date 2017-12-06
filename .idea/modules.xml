@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Adress Book.iml" filepath="$PROJECT_DIR$/Adress Book.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Password manager.iml" filepath="$PROJECT_DIR$/Password manager.iml" />
     </modules>
   </component>
 </project>
