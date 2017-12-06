@@ -49,8 +49,8 @@
         </AnchorPane>
         <AnchorPane prefWidth="261.0">
             <children>
-                <Button fx:id="btn_Apply" layoutX="90.0" layoutY="-5.0" maxWidth="100.0" mnemonicParsing="false" onAction="#apply" text="Применить " AnchorPane.topAnchor="0.0" />
-                <Button fx:id="btn_Cancel" layoutX="191.0" layoutY="-5.0" mnemonicParsing="false" onAction="#cancel" prefWidth="70.0" text="Отмена" AnchorPane.topAnchor="0.0" />
+                <Button fx:id="btn_Apply" layoutX="90.0" layoutY="-5.0" maxWidth="100.0" mnemonicParsing="false" text="Применить " AnchorPane.topAnchor="0.0" />
+                <Button fx:id="btn_Cancel" layoutX="191.0" layoutY="-5.0" mnemonicParsing="false" prefWidth="70.0" text="Отмена" AnchorPane.topAnchor="0.0" />
             </children>
         </AnchorPane>
     </children>
