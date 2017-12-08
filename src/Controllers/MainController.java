@@ -53,7 +53,9 @@ public class MainController {
 
     private CollectionsPasswordManager collectionsPasswordManager = new CollectionsPasswordManager();
 
-    // Loads FXML and sets GUI
+    /**
+     * Loads FXML and sets GUI
+     */
     @FXML
     private void initialize() {
 
@@ -69,11 +71,39 @@ public class MainController {
 
         collectionsPasswordManager.getNoteObservableList().addListener((ListChangeListener<Note>) c -> updateLabel());
     }
-    
-    // May be called by pressing "add" or "change" button
-    // Opens a new dialog window
-    // Depending on which button pressed, adds or changes note
-    public void showNewNoteWindow(ActionEvent actionEvent) {
+
+    /**
+     * <p>May be called by pressing "add" or "change" button</p>
+     * Opens a new dialog window.
+     * Depending on which button pressed, adds or changes note
+     *
+     * @return void
+     */
+    public void controllButtonPressed(ActionEvent actionEvent) {
+
+        // Return, if method called by pressing not button
+        Object source = actionEvent.getSource();
+        if (!(source instanceof Button)) {
+            return;
+        }
+
+        Button btn = (Button) source;
+
+        Note selectedNote = (Note) tableView.getSelectionModel().getSelectedItem();
+
+        String selectedBtnId = btn.getId();
+        if (selectedBtnId.equals("btn_Delete")) {
+            if (selectedNote.equals(null)) {
+                System.out.println("null");
+                return;
+            }
+
+            collectionsPasswordManager.remove(selectedNote);
+            return;
+        } else if (selectedBtnId.equals("btn_Change")) {
+
+        }
+
         try {
             Parent root = FXMLLoader.load(getClass().getResource("../FXML/EditWindow.fxml"));
             Stage stage = new Stage();
@@ -87,34 +117,27 @@ public class MainController {
             ioEx.printStackTrace();
         }
     }
-    
-    // May be called by pressing "X" button
-    // Simply removes text from search textField
+
+    /**
+     * <p>May be called by pressing "X" button.</p>
+     * Simply removes text from search textField.
+     */
     public void clearTextField(ActionEvent actionEvent) {
         textField_Search.setText("");
     }
-    
-    // May be called by pressing "search" button
-    // Updates content of the tableView according to entered text in search textField
+
+    /**
+     * <p>May be called by pressing "search" button.</p>
+     * Updates content of the tableView according to entered text in search textField
+     */
     public void search(ActionEvent actionEvent) {
 
     }
-    
-    // May be called by pressing "delete" button
-    // As expected, deletes selected note
-    public void deleteNote(ActionEvent actionEvent) {
-        Object source = actionEvent.getSource();
-        
-        // if method called not by pressing button, return
-        if (!(source instanceof Button)) {
-            return;
-        }
-        
-        Button pressedButton = (Button) source;
-    }
-    
-    // May be called by changes in collectionsPasswordManager.noteObservableList
-    // Updates content of label according to number of notes
+
+    /**
+     * <p>May be called by changes in collectionsPasswordManager.noteObservableList.</p>
+     * Updates content of label according to number of notes
+     */
     public void updateLabel() {
         label_NumberOfNotes.setText("Кол-во записей: " + collectionsPasswordManager.size());
     }
