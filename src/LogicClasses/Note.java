@@ -1,9 +1,5 @@
 package LogicClasses;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-
 public class Note {
 
     // Describes to which service the record belongs
@@ -21,10 +17,19 @@ public class Note {
         this.password = password;
     }
 
-    public String getService() {
-
-        return service;
+    public void setService(String service) {
+        this.service = service;
     }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getService() { return service; }
 
     public String getLogin() {
         return login;
@@ -32,6 +37,10 @@ public class Note {
 
     public String getPassword() {
         return password;
+    }
+
+    public boolean allDataExist() {
+        return !(this.getService().equals("")) && !(this.getLogin().equals("")) && !(this.getPassword().equals(""));
     }
 
     @Override

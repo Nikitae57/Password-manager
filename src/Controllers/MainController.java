@@ -6,7 +6,6 @@ import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -53,8 +52,13 @@ public class MainController {
 
     private CollectionsPasswordManager collectionsPasswordManager = new CollectionsPasswordManager();
 
+    private FXMLLoader fxmlLoader = new FXMLLoader();
+    private EditController editController;
+    private Stage editStage, mainStage;
+    private Parent fxmlEdit;
+
     /**
-     * Loads FXML and sets GUI
+     * Loads FXML files and sets GUI
      */
     @FXML
     private void initialize() {
@@ -70,6 +74,18 @@ public class MainController {
         updateLabel();
 
         collectionsPasswordManager.getNoteObservableList().addListener((ListChangeListener<Note>) c -> updateLabel());
+        
+        try {
+            fxmlLoader.setLocation(getClass().getResource("../FXML/EditWindow.fxml"));
+            fxmlEdit = fxmlLoader.load();
+            editController = fxmlLoader.getController();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void setMainStage(Stage mainStage) {
+        this.mainStage = mainStage;
     }
 
     /**
@@ -88,34 +104,49 @@ public class MainController {
         }
 
         Button btn = (Button) source;
-
         Note selectedNote = (Note) tableView.getSelectionModel().getSelectedItem();
-
         String selectedBtnId = btn.getId();
         if (selectedBtnId.equals("btn_Delete")) {
-            if (selectedNote.equals(null)) {
+
+            // Return if nothing selected to delete
+            if (selectedNote == null) {
                 System.out.println("null");
                 return;
             }
 
+            // Remove note, do not show the edit dialog
             collectionsPasswordManager.remove(selectedNote);
             return;
-        } else if (selectedBtnId.equals("btn_Change")) {
 
+        } else if (selectedBtnId.equals("btn_Change") && selectedNote != null) {
+            editController.setNote(selectedNote);
+            showDialog();
+            tableView.refresh();
+
+        } else if (selectedBtnId.equals("btn_Add")) {
+            editController.setNote(new Note("", "", ""));
+            showDialog();
+
+            if (editController.getNote().allDataExist()) {
+                collectionsPasswordManager.add(editController.getNote());
+            }
+        }
+    }
+
+    private void showDialog() {
+
+        // Initializing stage only once
+        if (editStage == null) {
+
+            editStage = new Stage();
+            editStage.setTitle("Редактор");
+            editStage.setScene(new Scene(fxmlEdit, 315, 170));
+            editStage.initModality(Modality.WINDOW_MODAL);
+            editStage.setResizable(false);
+            editStage.initOwner(mainStage);
         }
 
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("../FXML/EditWindow.fxml"));
-            Stage stage = new Stage();
-            stage.setTitle("Добавление записи");
-            stage.setScene(new Scene(root, 315, 170));
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.setResizable(false);
-            stage.initOwner(( (Node) actionEvent.getSource()).getScene().getWindow());
-            stage.show();
-        } catch (IOException ioEx) {
-            ioEx.printStackTrace();
-        }
+        editStage.showAndWait();
     }
 
     /**

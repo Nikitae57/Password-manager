@@ -11,51 +11,65 @@ import javafx.stage.Stage;
 public class EditController {
 
     @FXML
-    Button btn_Apply;
+    private Button btn_Apply;
 
     @FXML
-    Button btn_Cancel;
+    private Button btn_Cancel;
 
     @FXML
-    TextField textField_Service;
+    private TextField textField_Service;
 
     @FXML
-    TextField textField_Login;
+    private TextField textField_Login;
 
     @FXML
-    TextField textField_Password;
+    private TextField textField_Password;
 
     private Note note;
 
     /**
      * <p>Adds or changes note depends on which button pressed.</p>
      * @param actionEvent
-     * @return void
      */
     public void apply(ActionEvent actionEvent) {
         String service = textField_Service.getText();
         String login = textField_Login.getText();
         String password = textField_Password.getText();
 
+        // All textAreas are filled, could create new note
         if (!(service).equals("") && !(login.equals("")) && !(password.equals(""))) {
-            System.out.println("all fields");
-        } else {
-            // Not all textFields filled
-            System.out.println("not all fields");
+
+            note.setService(textField_Service.getText());
+            note.setPassword(textField_Password.getText());
+            note.setLogin(textField_Login.getText());
+
+            cancel(actionEvent);
         }
     }
 
     /**
      * Closes modal window
-     * @return void
      */
     public void cancel(ActionEvent actionEvent) {
         Node source = (Node) actionEvent.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
-        stage.close();
+        stage.hide();
     }
 
+    /**
+     * Getter for note
+     * @return Note
+     */
+    public Note getNote() {
+        return note;
+    }
+
+    /**
+     * Fills all three textArea with provided data
+     * @param note Provided note
+     */
     public void setNote(Note note) {
+
         this.note = note;
 
         textField_Service.setText(note.getService());
