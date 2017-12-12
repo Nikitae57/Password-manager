@@ -15,10 +15,9 @@
    <children>
       <AnchorPane prefHeight="19.0" prefWidth="310.0">
          <children>
-            <TextField fx:id="textField_Search" prefHeight="30.0" prefWidth="260.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="55.0" />
-            <Button fx:id="btn_ClearTextField" layoutX="210.0" layoutY="3.0" mnemonicParsing="false" onAction="#clearTextField" text="X" AnchorPane.rightAnchor="58.0" />
-            <Button fx:id="btn_Search" layoutX="285.0" mnemonicParsing="false" onAction="#search" prefHeight="30.0" text="Поиск" AnchorPane.rightAnchor="0.0" />
-            <Label fx:id="label_NumberOfNotes" layoutY="31.0" text="Кол-во записей: " />
+            <TextField fx:id="textField_Search" prefHeight="30.0" prefWidth="295.0" promptText="Введите для поиска" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+            <Button fx:id="btn_ClearTextField" layoutX="269.0" layoutY="3.0" mnemonicParsing="false" onAction="#clearTextField" text="X" AnchorPane.rightAnchor="2.0" />
+            <Label fx:id="label_NumberOfNotes" layoutY="31.0" text="Всего записей: " />
          </children>
          <VBox.margin>
             <Insets bottom="10.0" />

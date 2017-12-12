@@ -3,6 +3,8 @@ package Controllers;
 import Interfaces.impls.CollectionsPasswordManager;
 import LogicClasses.Note;
 import javafx.collections.ListChangeListener;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,9 +12,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 
 public class MainController {
@@ -70,10 +74,40 @@ public class MainController {
         collectionsPasswordManager = new CollectionsPasswordManager();
         collectionsPasswordManager.enterTestData();
 
-        tableView.setItems(collectionsPasswordManager.getNoteObservableList());
-        updateLabel();
-
         collectionsPasswordManager.getNoteObservableList().addListener((ListChangeListener<Note>) c -> updateLabel());
+
+        // Wrap noteObservableList into FilteredList so that we could manage displaying content of tableView (search)
+        FilteredList<Note> noteFilteredList = new FilteredList<>(collectionsPasswordManager.getNoteObservableList());
+
+        // Search function
+        textField_Search.textProperty().addListener((observable, oldValue, newValue) -> {
+            noteFilteredList.setPredicate(note -> {
+
+                // If search textField is empty, display all notes
+                if (newValue.isEmpty() || newValue == null) {
+                    return true;
+                }
+
+                String lowereCaseFilter = newValue.toLowerCase();
+
+                // If login or service name matches the searched word, display it
+                if (note.getService().toLowerCase().contains(lowereCaseFilter) ||
+                    note.getLogin().toLowerCase().contains(lowereCaseFilter)) {
+
+                    return true;
+                }
+
+                // No matching result found
+                return false;
+            });
+        });
+
+        // Wrap noteList to SortedList so that user could sort table content
+        SortedList<Note> noteSortedList = new SortedList<>(noteFilteredList);
+        noteSortedList.comparatorProperty().bind(tableView.comparatorProperty());
+
+        tableView.setItems(noteSortedList);
+        updateLabel();
         
         try {
             fxmlLoader.setLocation(getClass().getResource("../FXML/EditWindow.fxml"));
@@ -170,6 +204,6 @@ public class MainController {
      * Updates content of label according to number of notes
      */
     public void updateLabel() {
-        label_NumberOfNotes.setText("Кол-во записей: " + collectionsPasswordManager.size());
+        label_NumberOfNotes.setText("Всего записей: " + collectionsPasswordManager.size());
     }
 }
