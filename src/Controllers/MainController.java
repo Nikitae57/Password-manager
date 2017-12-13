@@ -110,7 +110,7 @@ public class MainController {
         updateLabel();
         
         try {
-            fxmlLoader.setLocation(getClass().getResource("../FXML/EditWindow.fxml"));
+            fxmlLoader.setLocation(getClass().getResource("/FXML/EditWindow.fxml"));
             fxmlEdit = fxmlLoader.load();
             editController = fxmlLoader.getController();
         } catch (IOException ex) {
