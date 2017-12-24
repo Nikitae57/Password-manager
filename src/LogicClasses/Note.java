@@ -1,6 +1,8 @@
 package LogicClasses;
 
-public class Note {
+import java.io.Serializable;
+
+public class Note implements Serializable {
 
     // Describes to which service the record belongs
     private String service;
