@@ -1,8 +1,10 @@
 package Controllers;
 
 import Interfaces.impls.CollectionsPasswordManager;
+import LogicClasses.Main;
 import LogicClasses.Note;
 import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
@@ -12,7 +14,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -54,11 +55,12 @@ public class MainController {
     @FXML
     private TextField textField_Search;
 
-    private CollectionsPasswordManager collectionsPasswordManager = new CollectionsPasswordManager();
+    private static CollectionsPasswordManager collectionsPasswordManager;
+    private File file;
 
     private FXMLLoader fxmlLoader = new FXMLLoader();
     private EditController editController;
-    private Stage editStage, mainStage;
+    private Stage editStage;
     private Parent fxmlEdit;
 
     /**
@@ -71,8 +73,8 @@ public class MainController {
         column_Login.setCellValueFactory(new PropertyValueFactory<Note, String>("login"));
         column_Password.setCellValueFactory(new PropertyValueFactory<Note, String>("password"));
 
-        collectionsPasswordManager = new CollectionsPasswordManager();
-        collectionsPasswordManager.enterTestData();
+        /*collectionsPasswordManager = new CollectionsPasswordManager();
+        collectionsPasswordManager.enterTestData();*/
 
         collectionsPasswordManager.getNoteObservableList().addListener((ListChangeListener<Note>) c -> updateLabel());
 
@@ -118,8 +120,17 @@ public class MainController {
         }
     }
 
-    public void setMainStage(Stage mainStage) {
-        this.mainStage = mainStage;
+    public void setFile(File file) {
+        this.file = file;
+    }
+
+    public static void initializeList(ObservableList<Note> noteList) {
+        collectionsPasswordManager = new CollectionsPasswordManager(noteList);
+    }
+
+    public static void initializeList() {
+        collectionsPasswordManager = new CollectionsPasswordManager();
+        Main.outPassCollection = collectionsPasswordManager.getNoteObservableList();
     }
 
     /**
@@ -177,7 +188,7 @@ public class MainController {
             editStage.setScene(new Scene(fxmlEdit, 315, 170));
             editStage.initModality(Modality.WINDOW_MODAL);
             editStage.setResizable(false);
-            editStage.initOwner(mainStage);
+            editStage.initOwner(Main.STAGE);
         }
 
         editStage.showAndWait();
@@ -192,18 +203,14 @@ public class MainController {
     }
 
     /**
-     * <p>May be called by pressing "search" button.</p>
-     * Updates content of the tableView according to entered text in search textField
-     */
-    public void search(ActionEvent actionEvent) {
-
-    }
-
-    /**
      * <p>May be called by changes in collectionsPasswordManager.noteObservableList.</p>
      * Updates content of label according to number of notes
      */
     public void updateLabel() {
         label_NumberOfNotes.setText("Всего записей: " + collectionsPasswordManager.size());
     }
+
+//    public static CollectionsPasswordManager getCollectionsPasswordManager() {
+//        return collectionsPasswordManager;
+//    }
 }

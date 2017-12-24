@@ -1,13 +1,10 @@
 package Interfaces.impls;
 
-import Controllers.MainController;
 import Interfaces.PasswordManager;
 import LogicClasses.Note;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
-import java.util.HashMap;
+
 
 public class CollectionsPasswordManager implements PasswordManager {
 

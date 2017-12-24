@@ -7,17 +7,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="230.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="65.0" prefWidth="230.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.OpenFileController">
    <children>
       <AnchorPane prefHeight="86.0" prefWidth="342.0">
          <children>
-            <Button layoutX="14.0" layoutY="18.0" mnemonicParsing="false" text="Открыть" AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="18.0">
+            <Button fx:id="btn_open" defaultButton="true" layoutX="14.0" layoutY="18.0" mnemonicParsing="false" onAction="#openFile" text="Открыть" AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="18.0">
                <font>
                   <Font size="14.0" />
                </font>
             </Button>
-            <Button layoutX="136.0" layoutY="18.0" mnemonicParsing="false" prefWidth="75.0" text="Новый" AnchorPane.bottomAnchor="17.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="18.0">
+            <Button fx:id="btn_newFile" cancelButton="true" layoutX="136.0" layoutY="18.0" mnemonicParsing="false" onAction="#createNewFile" prefWidth="75.0" text="Новый" AnchorPane.bottomAnchor="17.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="18.0">
                <font>
                   <Font size="14.0" />
                </font>
