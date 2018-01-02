@@ -2,25 +2,42 @@ package Controllers;
 
 import LogicClasses.Main;
 import LogicClasses.Note;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 
 public class OpenFileController {
+
+    @FXML
+    VBox VBox_openFile;
+
+    @FXML
+    HBox HBox_open_new;
+
+    @FXML
+    HBox HBox_password;
+
+    @FXML
+    Button btn_Apply;
+
+    @FXML
+    PasswordField passwordField_password;
 
     Main main = new Main();
     File file;
     Stage openStage;
+    Mode mode;
 
-    public void openFile(ActionEvent actionEvent) throws IOException {
+    public void openFile(ActionEvent actionEvent) {
 
         Node source = (Node) actionEvent.getSource();
         openStage = (Stage) source.getScene().getWindow();
@@ -36,17 +53,10 @@ public class OpenFileController {
             return;
         }
 
-        try {
-            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
-            Main.outPassCollection = FXCollections.observableArrayList((Note[]) ois.readObject());
-            MainController.initializeList(Main.outPassCollection);
-        } catch (ClassNotFoundException cnfex) {
-            cnfex.printStackTrace();
-            Platform.exit();
-        }
-
-        main.setFile(file);
-        openStage.close();
+        Main.file = file;
+        passwordField_password.requestFocus();
+        btn_Apply.setDisable(false);
+        mode = Mode.OPEN_FILE;
     }
 
     public void createNewFile(ActionEvent actionEvent) {
@@ -69,11 +79,50 @@ public class OpenFileController {
 
             file.createNewFile();
             MainController.initializeList();
-            main.setFile(file);
-            openStage.close();
+            Main.file = file;
+            passwordField_password.requestFocus();
+            btn_Apply.setDisable(false);
+            mode = Mode.NEW_FILE;
 
         } catch (IOException ioex) {
-            Platform.exit();
+            System.exit(0);
         }
     }
+
+    public void apply(ActionEvent actionEvent) {
+
+        if (passwordField_password.getText().trim().equals("")) {
+            return;
+        }
+        Main.password = passwordField_password.getText().trim();
+
+        if (mode == Mode.OPEN_FILE) {
+            try {
+
+                ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
+                Main.outPassCollection = FXCollections.observableArrayList((Note[]) ois.readObject());
+                MainController.initializeList(Main.outPassCollection);
+
+            } catch (FileNotFoundException fileEx) {
+                fileEx.printStackTrace();
+                // doSomething
+            } catch (ClassNotFoundException cnfex) {
+                cnfex.printStackTrace();
+                System.exit(0);
+            } catch (IOException ioex) {
+                ioex.printStackTrace();
+            }
+
+        }
+
+        openStage.close();
+    }
+
+    public void exit(ActionEvent actionEvent) {
+        System.exit(0);
+    }
+}
+
+enum Mode {
+    NEW_FILE, OPEN_FILE;
 }

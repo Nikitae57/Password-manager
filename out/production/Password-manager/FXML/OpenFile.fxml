@@ -8,24 +8,41 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="60.0" minWidth="260.0" prefHeight="60.0" prefWidth="260.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.OpenFileController">
+<VBox fx:id="VBox_openFile" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="54.0" minWidth="194.0" prefHeight="130.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.OpenFileController">
    <children>
-      <HBox prefHeight="100.0" prefWidth="200.0">
+      <HBox fx:id="HBox_open_new" prefHeight="40.0" prefWidth="181.0">
          <children>
-            <Button fx:id="btn_open" defaultButton="true" minHeight="30.0" minWidth="80.0" mnemonicParsing="false" onAction="#openFile" text="Открыть">
-               <font>
-                  <Font size="14.0" />
-               </font>
+            <Button fx:id="btn_open" minHeight="30.0" minWidth="70.0" mnemonicParsing="false" onAction="#openFile" text="Открыть">
                <HBox.margin>
-                  <Insets left="35.0" top="15.0" />
+                  <Insets left="20.0" top="10.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="btn_newFile" cancelButton="true" minHeight="30.0" minWidth="80.0" mnemonicParsing="false" onAction="#createNewFile" prefWidth="80.0" text="Новый">
-               <font>
-                  <Font size="14.0" />
-               </font>
+            <Button fx:id="btn_newFile" cancelButton="true" minHeight="30.0" minWidth="70.0" mnemonicParsing="false" onAction="#createNewFile" prefWidth="60.0" text="Новый">
                <HBox.margin>
-                  <Insets left="30.0" top="15.0" />
+                  <Insets left="20.0" top="10.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+      <HBox fx:id="HBox_password" prefHeight="53.0" prefWidth="265.0">
+         <children>
+            <PasswordField fx:id="passwordField_password" prefHeight="25.0" prefWidth="159.0">
+               <HBox.margin>
+                  <Insets left="20.0" top="10.0" />
+               </HBox.margin>
+            </PasswordField>
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Button cancelButton="true" minHeight="30.0" minWidth="70.0" mnemonicParsing="false" onAction="#exit" text="Выйти">
+               <HBox.margin>
+                  <Insets left="20.0" top="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btn_Apply" defaultButton="true" disable="true" minHeight="30.0" minWidth="70.0" mnemonicParsing="false" onAction="#apply" text="Принять">
+               <HBox.margin>
+                  <Insets left="20.0" top="10.0" />
                </HBox.margin>
             </Button>
          </children>

@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -19,15 +20,17 @@ public class Main extends Application {
     public static Stage STAGE;
     public static File file;
     public static ObservableList<Note> outPassCollection;
+    public static String password;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
         STAGE = primaryStage;
+        STAGE.getIcons().add(new Image(Main.class.getResourceAsStream("/Resources/Icon-0.png")));
 
         Parent openParent = FXMLLoader.load(getClass().getResource("/FXML/OpenFile.fxml"));
         Stage openStage = new Stage();
-        openStage.setTitle("Добро пожаловать");
+        openStage.getIcons().add(new Image(Main.class.getResourceAsStream("/Resources/Icon-0.png")));
         openStage.setScene(new Scene(openParent));
         openStage.setResizable(false);
         openStage.initModality(Modality.WINDOW_MODAL);
@@ -40,6 +43,8 @@ public class Main extends Application {
         STAGE.setResizable(true);
         STAGE.setMinWidth(420);
         STAGE.setMinHeight(260);
+
+
 
         STAGE.show();
     }
@@ -54,10 +59,6 @@ public class Main extends Application {
             ioex.printStackTrace();
             Platform.exit();
         }
-    }
-
-    public void setFile(File file) {
-        this.file = file;
     }
 
     public static void main(String[] args) {
