@@ -1,33 +1,39 @@
 package Controllers;
 
-import Interfaces.impls.CollectionsPasswordManager;
-import LogicClasses.*;
+import LogicClasses.Main;
+import LogicClasses.Note;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.scene.Node;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 
 public class OpenFileController {
 
     Main main = new Main();
-    CollectionsPasswordManager cpm = new CollectionsPasswordManager();
-    MainController mc = new MainController();
     File file;
+    Stage openStage;
 
     public void openFile(ActionEvent actionEvent) throws IOException {
 
+        Node source = (Node) actionEvent.getSource();
+        openStage = (Stage) source.getScene().getWindow();
+
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open password file");
-        FileChooser.ExtensionFilter extFilter =
-                new FileChooser.ExtensionFilter("PSS files (*.pss)", "*.pss");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PSS files (*.pss)", "*.pss");
         fileChooser.getExtensionFilters().add(extFilter);
         file = fileChooser.showOpenDialog(Main.STAGE);
 
         // If file is not chosen, close the program
         if (file == null) {
-            Platform.exit();
+            return;
         }
 
         try {
@@ -40,10 +46,13 @@ public class OpenFileController {
         }
 
         main.setFile(file);
-        main.showMainWindow();
+        openStage.close();
     }
 
     public void createNewFile(ActionEvent actionEvent) {
+
+        Node source = (Node) actionEvent.getSource();
+        openStage = (Stage) source.getScene().getWindow();
 
         try {
             FileChooser fileChooser = new FileChooser();
@@ -55,14 +64,13 @@ public class OpenFileController {
 
             // If file is not chosen, close the program
             if (file == null) {
-                Platform.exit();
+                return;
             }
 
             file.createNewFile();
             MainController.initializeList();
-            //mc.setFile(file);
             main.setFile(file);
-            main.showMainWindow();
+            openStage.close();
 
         } catch (IOException ioex) {
             Platform.exit();

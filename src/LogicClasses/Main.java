@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -24,17 +25,23 @@ public class Main extends Application {
 
         STAGE = primaryStage;
 
-        FXMLLoader openFXMLLoader = new FXMLLoader();
-        openFXMLLoader.setLocation(getClass().getResource("/FXML/OpenFile.fxml"));
-        Parent openParent = openFXMLLoader.load();
+        Parent openParent = FXMLLoader.load(getClass().getResource("/FXML/OpenFile.fxml"));
+        Stage openStage = new Stage();
+        openStage.setTitle("Добро пожаловать");
+        openStage.setScene(new Scene(openParent));
+        openStage.setResizable(false);
+        openStage.initModality(Modality.WINDOW_MODAL);
+        openStage.initOwner(STAGE);
+        openStage.showAndWait();
 
-        primaryStage.setTitle("Passworder");
-        primaryStage.setScene(new Scene(openParent));
-        primaryStage.setResizable(false);
-        primaryStage.show();
+        Parent mainParent = FXMLLoader.load(getClass().getResource("/FXML/MainWindow.fxml"));
+        STAGE.setTitle("Passworder");
+        STAGE.setScene(new Scene(mainParent));
+        STAGE.setResizable(true);
+        STAGE.setMinWidth(420);
+        STAGE.setMinHeight(260);
 
-
-        //OpenFile(primaryStage);
+        STAGE.show();
     }
 
     @Override
@@ -47,17 +54,6 @@ public class Main extends Application {
             ioex.printStackTrace();
             Platform.exit();
         }
-    }
-
-    public void showMainWindow() throws IOException {
-        FXMLLoader mainFXMLLoader = new FXMLLoader();
-        mainFXMLLoader.setLocation(getClass().getResource("/FXML/MainWindow.fxml"));
-        Parent mainParent = mainFXMLLoader.load();
-
-        STAGE.setScene(new Scene(mainParent));
-        STAGE.setResizable(true);
-        STAGE.setMinWidth(420);
-        STAGE.setMinHeight(260);
     }
 
     public void setFile(File file) {

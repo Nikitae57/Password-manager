@@ -11,12 +11,6 @@ import javafx.stage.Stage;
 public class EditController {
 
     @FXML
-    private Button btn_Apply;
-
-    @FXML
-    private Button btn_Cancel;
-
-    @FXML
     private TextField textField_Service;
 
     @FXML
@@ -26,15 +20,17 @@ public class EditController {
     private TextField textField_Password;
 
     private Note note;
+    private Node source;
+    private Stage stage;
 
     /**
      * <p>Adds or changes note depends on which button pressed.</p>
      * @param actionEvent
      */
     public void apply(ActionEvent actionEvent) {
-        String service = textField_Service.getText();
-        String login = textField_Login.getText();
-        String password = textField_Password.getText();
+        String service = textField_Service.getText().trim();
+        String login = textField_Login.getText().trim();
+        String password = textField_Password.getText().trim();
 
         // All textAreas are filled, could create new note
         if (!(service).equals("") && !(login.equals("")) && !(password.equals(""))) {
@@ -51,8 +47,11 @@ public class EditController {
      * Closes modal window
      */
     public void cancel(ActionEvent actionEvent) {
-        Node source = (Node) actionEvent.getSource();
-        Stage stage = (Stage) source.getScene().getWindow();
+        if (source == null && stage == null) {
+            source = (Node) actionEvent.getSource();
+            stage = (Stage) source.getScene().getWindow();
+        }
+
         stage.hide();
     }
 

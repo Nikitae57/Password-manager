@@ -44,9 +44,6 @@ public class MainController {
     private Button btn_Delete;
 
     @FXML
-    private Button btn_Search;
-
-    @FXML
     private Button btn_ClearTextField;
 
     @FXML
@@ -73,8 +70,7 @@ public class MainController {
         column_Login.setCellValueFactory(new PropertyValueFactory<Note, String>("login"));
         column_Password.setCellValueFactory(new PropertyValueFactory<Note, String>("password"));
 
-        /*collectionsPasswordManager = new CollectionsPasswordManager();
-        collectionsPasswordManager.enterTestData();*/
+
 
         collectionsPasswordManager.getNoteObservableList().addListener((ListChangeListener<Note>) c -> updateLabel());
 
@@ -210,7 +206,4 @@ public class MainController {
         label_NumberOfNotes.setText("Всего записей: " + collectionsPasswordManager.size());
     }
 
-//    public static CollectionsPasswordManager getCollectionsPasswordManager() {
-//        return collectionsPasswordManager;
-//    }
 }
