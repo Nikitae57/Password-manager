@@ -66,11 +66,13 @@ public class MainController {
     @FXML
     private void initialize() {
 
+        if (Main.password == null || Main.password.equals("")) {
+            System.exit(0);
+        }
+
         column_ServiceName.setCellValueFactory(new PropertyValueFactory<Note, String>("service"));
         column_Login.setCellValueFactory(new PropertyValueFactory<Note, String>("login"));
         column_Password.setCellValueFactory(new PropertyValueFactory<Note, String>("password"));
-
-
 
         collectionsPasswordManager.getNoteObservableList().addListener((ListChangeListener<Note>) c -> updateLabel());
 
@@ -89,8 +91,8 @@ public class MainController {
                 String lowereCaseFilter = newValue.toLowerCase();
 
                 // If login or service name matches the searched word, display it
-                if (note.getService().toLowerCase().contains(lowereCaseFilter) ||
-                    note.getLogin().toLowerCase().contains(lowereCaseFilter)) {
+                if (note.getService().toLowerCase().startsWith(lowereCaseFilter) ||
+                    note.getLogin().toLowerCase().startsWith(lowereCaseFilter)) {
 
                     return true;
                 }

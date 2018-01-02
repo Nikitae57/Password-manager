@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javax.crypto.KeyGenerator;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -44,20 +45,16 @@ public class Main extends Application {
         STAGE.setMinWidth(420);
         STAGE.setMinHeight(260);
 
-
-
         STAGE.show();
     }
 
     @Override
     public void stop() {
-        // Здесь надо сохранить файл (переменная file)
         try {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
             oos.writeObject(outPassCollection.toArray(new Note[0]));
         } catch (IOException ioex) {
             ioex.printStackTrace();
-            Platform.exit();
         }
     }
 

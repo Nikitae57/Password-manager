@@ -37,6 +37,17 @@ public class OpenFileController {
     Stage openStage;
     Mode mode;
 
+    @FXML
+    private void initialize() {
+        passwordField_password.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (passwordField_password.getText().trim().equals("")) {
+                btn_Apply.setDisable(true);
+            } else {
+                btn_Apply.setDisable(false);
+            }
+        });
+    }
+
     public void openFile(ActionEvent actionEvent) {
 
         Node source = (Node) actionEvent.getSource();
@@ -54,8 +65,8 @@ public class OpenFileController {
         }
 
         Main.file = file;
+        passwordField_password.setDisable(false);
         passwordField_password.requestFocus();
-        btn_Apply.setDisable(false);
         mode = Mode.OPEN_FILE;
     }
 
@@ -76,12 +87,12 @@ public class OpenFileController {
             if (file == null) {
                 return;
             }
-
             file.createNewFile();
-            MainController.initializeList();
             Main.file = file;
+
+            MainController.initializeList();
+            passwordField_password.setDisable(false);
             passwordField_password.requestFocus();
-            btn_Apply.setDisable(false);
             mode = Mode.NEW_FILE;
 
         } catch (IOException ioex) {
@@ -121,6 +132,7 @@ public class OpenFileController {
     public void exit(ActionEvent actionEvent) {
         System.exit(0);
     }
+    
 }
 
 enum Mode {

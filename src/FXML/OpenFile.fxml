@@ -26,7 +26,7 @@
       </HBox>
       <HBox fx:id="HBox_password" prefHeight="53.0" prefWidth="265.0">
          <children>
-            <PasswordField fx:id="passwordField_password" prefHeight="25.0" prefWidth="159.0">
+            <PasswordField fx:id="passwordField_password" disable="true" prefHeight="25.0" prefWidth="159.0">
                <HBox.margin>
                   <Insets left="20.0" top="10.0" />
                </HBox.margin>
