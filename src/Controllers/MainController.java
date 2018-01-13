@@ -14,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -182,6 +183,7 @@ public class MainController {
         if (editStage == null) {
 
             editStage = new Stage();
+            editStage.getIcons().add(new Image(getClass().getResourceAsStream("/Resources/Icon-0.png")));
             editStage.setTitle("Редактор");
             editStage.setScene(new Scene(fxmlEdit, 315, 170));
             editStage.initModality(Modality.WINDOW_MODAL);

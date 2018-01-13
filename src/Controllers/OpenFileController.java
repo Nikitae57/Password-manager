@@ -1,5 +1,6 @@
 package Controllers;
 
+import LogicClasses.Crypto;
 import LogicClasses.Main;
 import LogicClasses.Note;
 import javafx.collections.FXCollections;
@@ -13,6 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import javax.crypto.BadPaddingException;
 import java.io.*;
 
 public class OpenFileController {
@@ -32,7 +34,6 @@ public class OpenFileController {
     @FXML
     PasswordField passwordField_password;
 
-    Main main = new Main();
     File file;
     Stage openStage;
     Mode mode;
@@ -44,6 +45,7 @@ public class OpenFileController {
                 btn_Apply.setDisable(true);
             } else {
                 btn_Apply.setDisable(false);
+                passwordField_password.setStyle("-fx-text-fill: black");
             }
         });
     }
@@ -109,6 +111,7 @@ public class OpenFileController {
 
         if (mode == Mode.OPEN_FILE) {
             try {
+                Crypto.decrypt(Main.password, file, file);
 
                 ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
                 Main.outPassCollection = FXCollections.observableArrayList((Note[]) ois.readObject());
@@ -117,22 +120,30 @@ public class OpenFileController {
             } catch (FileNotFoundException fileEx) {
                 fileEx.printStackTrace();
                 // doSomething
+
+            } catch (BadPaddingException bpe) {
+                passwordField_password.setStyle("-fx-text-fill: red");
+                passwordField_password.requestFocus();
+                return;
+
             } catch (ClassNotFoundException cnfex) {
                 cnfex.printStackTrace();
                 System.exit(0);
             } catch (IOException ioex) {
                 ioex.printStackTrace();
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
 
         }
 
+        Main.started = true;
         openStage.close();
     }
 
     public void exit(ActionEvent actionEvent) {
         System.exit(0);
     }
-    
 }
 
 enum Mode {
