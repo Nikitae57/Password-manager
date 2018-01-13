@@ -22,7 +22,7 @@ public class CollectionsPasswordManager implements PasswordManager {
         return noteObservableList;
     }
 
-    int size;
+    private int size;
     public Note getNoteByServiceName(String service) {
 
         size = noteObservableList.size();

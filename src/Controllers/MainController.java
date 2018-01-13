@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -34,15 +35,6 @@ public class MainController {
 
     @FXML
     private TableColumn<Note, String> column_Password;
-
-    @FXML
-    private Button btn_Add;
-
-    @FXML
-    private Button btn_Change;
-
-    @FXML
-    private Button btn_Delete;
 
     @FXML
     private Button btn_ClearTextField;
@@ -66,7 +58,6 @@ public class MainController {
      */
     @FXML
     private void initialize() {
-
         if (Main.password == null || Main.password.equals("")) {
             System.exit(0);
         }
@@ -89,17 +80,13 @@ public class MainController {
                     return true;
                 }
 
-                String lowereCaseFilter = newValue.toLowerCase();
+                String loweredCaseFilter = newValue.toLowerCase();
 
                 // If login or service name matches the searched word, display it
-                if (note.getService().toLowerCase().startsWith(lowereCaseFilter) ||
-                    note.getLogin().toLowerCase().startsWith(lowereCaseFilter)) {
-
-                    return true;
-                }
+                return note.getService().toLowerCase().startsWith(loweredCaseFilter) ||
+                        note.getLogin().toLowerCase().startsWith(loweredCaseFilter);
 
                 // No matching result found
-                return false;
             });
         });
 
@@ -119,10 +106,6 @@ public class MainController {
         }
     }
 
-    public void setFile(File file) {
-        this.file = file;
-    }
-
     public static void initializeList(ObservableList<Note> noteList) {
         collectionsPasswordManager = new CollectionsPasswordManager(noteList);
     }
@@ -139,7 +122,7 @@ public class MainController {
      *
      * @return void
      */
-    public void controllButtonPressed(ActionEvent actionEvent) {
+    public void controlButtonPressed(ActionEvent actionEvent) {
 
         // Return, if method called by pressing not button
         Object source = actionEvent.getSource();
@@ -210,4 +193,11 @@ public class MainController {
         label_NumberOfNotes.setText("Всего записей: " + collectionsPasswordManager.size());
     }
 
+    public void mouseEntered(MouseEvent mouseEvent) {
+        btn_ClearTextField.setOpacity(0.8);
+    }
+
+    public void mouseExited(MouseEvent mouseEvent) {
+        btn_ClearTextField.setOpacity(0.5);
+    }
 }

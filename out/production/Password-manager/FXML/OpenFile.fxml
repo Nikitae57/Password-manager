@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <VBox fx:id="VBox_openFile" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="54.0" minWidth="194.0" prefHeight="130.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.OpenFileController">
    <children>
       <HBox fx:id="HBox_open_new" prefHeight="40.0" prefWidth="181.0">

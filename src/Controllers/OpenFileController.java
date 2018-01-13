@@ -147,5 +147,5 @@ public class OpenFileController {
 }
 
 enum Mode {
-    NEW_FILE, OPEN_FILE;
+    NEW_FILE, OPEN_FILE
 }

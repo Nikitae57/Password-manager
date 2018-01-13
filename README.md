@@ -1,7 +1,7 @@
 # Password-manager
 This app allows you to store your passwords and encrypt them. WIP
 
-# Intsruction
+# Instruction
 
 To build this program follow this steps:
   1. Download it;

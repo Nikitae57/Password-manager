@@ -1,22 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.web.*?>
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-
+<?import javafx.scene.text.Font?>
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="260.0" minWidth="334.0" prefHeight="260.0" prefWidth="335.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.MainController">
    <children>
       <AnchorPane prefHeight="19.0" prefWidth="310.0">
          <children>
             <TextField fx:id="textField_Search" prefHeight="30.0" prefWidth="295.0" promptText="Введите для поиска" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-            <Button fx:id="btn_ClearTextField" layoutX="269.0" layoutY="3.0" mnemonicParsing="false" onAction="#clearTextField" text="X" AnchorPane.rightAnchor="2.0" />
+            <Button fx:id="btn_ClearTextField" layoutX="269.0" layoutY="3.0" minHeight="20.0" minWidth="20.0" mnemonicParsing="false" onAction="#clearTextField" onMouseEntered="#mouseEntered" onMouseExited="#mouseExited" opacity="0.5" style="-fx-background-radius: 15; -fx-background-color: white; -fx-border-color: white;" text="X" AnchorPane.rightAnchor="4.0">
+               <font>
+                  <Font size="10.0" />
+               </font></Button>
             <Label fx:id="label_NumberOfNotes" layoutY="31.0" text="Всего записей: " />
          </children>
          <VBox.margin>
@@ -42,9 +38,9 @@
             <Insets top="20.0" />
          </VBox.margin>
          <children>
-            <Button fx:id="btn_Add" layoutY="-1.0" mnemonicParsing="false" onAction="#controllButtonPressed" prefHeight="30.0" prefWidth="90.0" text="Добавить" AnchorPane.leftAnchor="0.0" />
-            <Button fx:id="btn_Change" layoutX="110.0" layoutY="-1.0" mnemonicParsing="false" onAction="#controllButtonPressed" prefHeight="30.0" prefWidth="90.0" text="Изменить" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="110.0" />
-            <Button fx:id="btn_Delete" layoutX="212.0" layoutY="-1.0" mnemonicParsing="false" onAction="#controllButtonPressed" prefHeight="30.0" prefWidth="90.0" text="Удалить" AnchorPane.rightAnchor="0.0" />
+            <Button fx:id="btn_Add" layoutY="-1.0" mnemonicParsing="false" onAction="#controlButtonPressed" prefHeight="30.0" prefWidth="90.0" text="Добавить" AnchorPane.leftAnchor="0.0" />
+            <Button fx:id="btn_Change" layoutX="110.0" layoutY="-1.0" mnemonicParsing="false" onAction="#controlButtonPressed" prefHeight="30.0" prefWidth="90.0" text="Изменить" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="110.0" />
+            <Button fx:id="btn_Delete" layoutX="212.0" layoutY="-1.0" mnemonicParsing="false" onAction="#controlButtonPressed" prefHeight="30.0" prefWidth="90.0" text="Удалить" AnchorPane.rightAnchor="0.0" />
          </children>
       </AnchorPane>
    </children>
