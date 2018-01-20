@@ -41,7 +41,7 @@ public class Main extends Application {
             STAGE.setTitle("Passworder");
             STAGE.setScene(new Scene(mainParent));
             STAGE.setResizable(true);
-            STAGE.setMinWidth(420);
+            STAGE.setMinWidth(400);
             STAGE.setMinHeight(260);
 
             STAGE.show();

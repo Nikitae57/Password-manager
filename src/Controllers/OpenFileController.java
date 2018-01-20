@@ -89,6 +89,11 @@ public class OpenFileController {
             if (file == null) {
                 return;
             }
+
+            if (!file.getName().endsWith(".pss")) {
+                file = new File(file.getAbsolutePath().concat(".pss"));
+            }
+
             file.createNewFile();
             Main.file = file;
 
