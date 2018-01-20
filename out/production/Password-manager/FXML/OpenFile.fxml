@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<VBox fx:id="VBox_openFile" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="54.0" minWidth="194.0" prefHeight="130.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.OpenFileController">
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="VBox_openFile" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="54.0" minWidth="194.0" prefHeight="144.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.OpenFileController">
    <children>
       <HBox fx:id="HBox_open_new" prefHeight="40.0" prefWidth="181.0">
          <children>
@@ -19,16 +23,21 @@
             </Button>
          </children>
       </HBox>
-      <HBox fx:id="HBox_password" prefHeight="53.0" prefWidth="265.0">
+      <Label text="Пароль:">
+         <VBox.margin>
+            <Insets left="20.0" top="10.0" />
+         </VBox.margin>
+      </Label>
+      <HBox fx:id="HBox_password" prefHeight="30.0" prefWidth="200.0">
          <children>
-            <PasswordField fx:id="passwordField_password" disable="true" prefHeight="25.0" prefWidth="159.0">
+            <PasswordField fx:id="passwordField_password" disable="true" prefHeight="25.0" prefWidth="159.0" promptText="Введите пароль">
                <HBox.margin>
-                  <Insets left="20.0" top="10.0" />
+                  <Insets left="20.0" />
                </HBox.margin>
             </PasswordField>
          </children>
       </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0">
+      <HBox prefHeight="61.0" prefWidth="200.0">
          <children>
             <Button cancelButton="true" minHeight="30.0" minWidth="70.0" mnemonicParsing="false" onAction="#exit" text="Выйти">
                <HBox.margin>
